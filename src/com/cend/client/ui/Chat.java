@@ -59,7 +59,10 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -70,6 +73,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.preference.PreferenceManager;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.util.Linkify;
@@ -83,6 +87,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -155,9 +160,6 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 	private boolean mBinded;
 	private boolean mCompact;
 
-	private enum currencies {
-		IC, LD, USD, EURO
-	};
 
 	/**
 	 * Constructor.
@@ -174,17 +176,17 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 		super.onCreate(savedBundle);
 		android.app.ActionBar actionbar = getActionBar();
 		actionbar.setDisplayHomeAsUpEnabled(true);
-		/*
-		 * this.registerReceiver(mBroadcastReceiver, new
-		 * IntentFilter(BeemBroadcastReceiver.BEEM_CONNECTION_CLOSED));
-		 * SharedPreferences settings =
-		 * PreferenceManager.getDefaultSharedPreferences(this);
-		 * 
-		 * if (getResources().getConfiguration().orientation ==
-		 * Configuration.ORIENTATION_LANDSCAPE) {
-		 * getWindow().setSoftInputMode(WindowManager
-		 * .LayoutParams.SOFT_INPUT_ADJUST_PAN); }
-		 */
+		
+		 this.registerReceiver(mBroadcastReceiver, new
+		 IntentFilter(BeemBroadcastReceiver.BEEM_CONNECTION_CLOSED));
+		 SharedPreferences settings =
+		 PreferenceManager.getDefaultSharedPreferences(this);
+		  
+		 	if (getResources().getConfiguration().orientation ==
+		  Configuration.ORIENTATION_LANDSCAPE) {
+		 getWindow().setSoftInputMode(WindowManager
+		 .LayoutParams.SOFT_INPUT_ADJUST_PAN); }
+		 
 
 		// mCompact =
 		// settings.getBoolean(BeemApplication.USE_COMPACT_CHAT_UI_KEY, false);
@@ -216,29 +218,22 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 			}
 		});
 
-		// prepareIconsStatus();
-
+		prepareIconsStatus();
+		
+		//set the name of the person,his online status and his avatar in the action bar
 		actionbar.setTitle("Preston");
 		actionbar.setSubtitle("online");
-		actionbar.setIcon(R.drawable.user_avatar);
 		actionbar.setLogo(R.drawable.user_avatar);
-		mListMessages
-				.add(new MessageText("Me", "Me", "Hi!", false, new Date()));
-		mListMessages
-				.add(new MessageText("Preston", "Preston",
-						"Hello! Can you send me 5000 IMVU Credits?", false,
-						new Date()));
-		mMessagesListAdapter.notifyDataSetChanged();
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		/*
-		 * mContact = new Contact(getIntent().getData()); if (!mBinded) {
-		 * bindService(SERVICE_INTENT, mConn, BIND_AUTO_CREATE); mBinded = true;
-		 * }
-		 */
+		
+		 mContact = new Contact(getIntent().getData()); if (!mBinded) {
+		 bindService(SERVICE_INTENT, mConn, BIND_AUTO_CREATE); mBinded = true;
+		 }
+		 
 	}
 
 	/**
@@ -247,7 +242,7 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		// this.unregisterReceiver(mBroadcastReceiver);
+		this.unregisterReceiver(mBroadcastReceiver);
 	}
 
 	/**
@@ -256,16 +251,16 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		/*
-		 * try { if (mChat != null) { mChat.setOpen(false);
-		 * mChat.removeMessageListener(mMessageListener); } if (mRoster != null)
-		 * mRoster.removeRosterListener(mBeemRosterListener); if (mChatManager
-		 * != null)
-		 * mChatManager.removeChatCreationListener(mChatManagerListener); }
-		 * catch (RemoteException e) { Log.e(TAG, e.getMessage()); } if
-		 * (mBinded) { unbindService(mConn); mBinded = false; } mXmppFacade =
-		 * null; mRoster = null; mChat = null; mChatManager = null;
-		 */
+		
+		 try { if (mChat != null) { mChat.setOpen(false);
+		 mChat.removeMessageListener(mMessageListener); } if (mRoster != null)
+		 mRoster.removeRosterListener(mBeemRosterListener); if (mChatManager
+		 != null)
+		 mChatManager.removeChatCreationListener(mChatManagerListener); }
+		 catch (RemoteException e) { Log.e(TAG, e.getMessage()); } if
+		 (mBinded) { unbindService(mConn); mBinded = false; } mXmppFacade =
+		 null; mRoster = null; mChat = null; mChatManager = null;
+		 
 	}
 
 	/**
@@ -422,12 +417,12 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 	 *             If a Binder remote-invocation error occurred.
 	 */
 	private void playRegisteredTranscript() throws RemoteException {
-		/*
-		 * mListMessages.clear(); if (mChat != null) { List<MessageText> msgList
-		 * = convertMessagesList(mChat.getMessages());
-		 * mListMessages.addAll(msgList);
-		 * mMessagesListAdapter.notifyDataSetChanged(); }
-		 */
+		
+		 mListMessages.clear(); if (mChat != null) { List<MessageText> msgList
+		 = convertMessagesList(mChat.getMessages());
+		 mListMessages.addAll(msgList);
+		 mMessagesListAdapter.notifyDataSetChanged(); }
+		 
 	}
 
 	/**
@@ -495,36 +490,34 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 	 */
 	private void sendMessage() {
 		String inputContent = mInputField.getText().toString();
+		
+		/*Prototype code
 		String amountPattern = "^(\\d+)(\\s?)(IC|LD)$";
 		Spanned successMsg = Html.fromHtml("<br/><small>&#10003;Sent</small>");
 		if (inputContent.matches(amountPattern)) {
 			inputContent = inputContent + successMsg;
-		}
-		mListMessages.add(new MessageText("Me", "Me", inputContent, false,
-				new Date()));
-		mMessagesListAdapter.notifyDataSetChanged();
-		mInputField.setText(null);
-		/*
-		 * if (!"".equals(inputContent)) { Message msgToSend = new
-		 * Message(mContact.getJIDWithRes(), Message.MSG_TYPE_CHAT);
-		 * msgToSend.setBody(inputContent);
-		 * 
-		 * try { if (mChat == null) { mChat = mChatManager.createChat(mContact,
-		 * mMessageListener); mChat.setOpen(true); }
-		 * mChat.sendMessage(msgToSend); } catch (RemoteException e) {
-		 * Log.e(TAG, e.getMessage()); }
-		 * 
-		 * final String self = getString(R.string.chat_self); MessageText
-		 * lastMessage = null; if (mListMessages.size() != 0) lastMessage =
-		 * mListMessages.get(mListMessages.size() - 1);
-		 * 
-		 * if (lastMessage != null && lastMessage.getName().equals(self)) {
-		 * lastMessage.setMessage(lastMessage.getMessage().concat("\n" +
-		 * inputContent)); lastMessage.setTimestamp(new Date()); } else
-		 * mListMessages.add(new MessageText(self, self, inputContent, false,
-		 * new Date())); mMessagesListAdapter.notifyDataSetChanged();
-		 * mInputField.setText(null); }
-		 */
+		}*/
+		
+		 if (!"".equals(inputContent)) { Message msgToSend = new
+		 Message(mContact.getJIDWithRes(), Message.MSG_TYPE_CHAT);
+		 msgToSend.setBody(inputContent);
+		  
+		 try { if (mChat == null) { mChat = mChatManager.createChat(mContact,
+		 mMessageListener); mChat.setOpen(true); }
+		 mChat.sendMessage(msgToSend); } catch (RemoteException e) {
+		 Log.e(TAG, e.getMessage()); }
+		  
+		 final String self = getString(R.string.chat_self); MessageText
+		 lastMessage = null; if (mListMessages.size() != 0) lastMessage =
+		 mListMessages.get(mListMessages.size() - 1);
+		  
+		 if (lastMessage != null && lastMessage.getName().equals(self)) {
+		 lastMessage.setMessage(lastMessage.getMessage().concat("\n" +
+		 inputContent)); lastMessage.setTimestamp(new Date()); } else
+		 mListMessages.add(new MessageText(self, self, inputContent, false,
+		 new Date())); mMessagesListAdapter.notifyDataSetChanged();
+		 mInputField.setText(null); }
+		 
 	}
 
 	/**
@@ -677,15 +670,15 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 		 */
 		@Override
 		public void onServiceConnected(ComponentName name, IBinder service) {
-			/*
-			 * mXmppFacade = IXmppFacade.Stub.asInterface(service); try {
-			 * mRoster = mXmppFacade.getRoster(); if (mRoster != null)
-			 * mRoster.addRosterListener(mBeemRosterListener); mChatManager =
-			 * mXmppFacade.getChatManager(); if (mChatManager != null) {
-			 * mChatManager.addChatCreationListener(mChatManagerListener);
-			 * changeCurrentChat(mContact); } } catch (RemoteException e) {
-			 * Log.e(TAG, e.getMessage()); }
-			 */
+			
+			 mXmppFacade = IXmppFacade.Stub.asInterface(service); try {
+			 mRoster = mXmppFacade.getRoster(); if (mRoster != null)
+			 mRoster.addRosterListener(mBeemRosterListener); mChatManager =
+			 mXmppFacade.getChatManager(); if (mChatManager != null) {
+			 mChatManager.addChatCreationListener(mChatManagerListener);
+			 changeCurrentChat(mContact); } } catch (RemoteException e) {
+			 Log.e(TAG, e.getMessage()); }
+			 
 		}
 
 		/**
@@ -693,12 +686,12 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 		 */
 		@Override
 		public void onServiceDisconnected(ComponentName name) {
-			/*
-			 * mXmppFacade = null; try {
-			 * mRoster.removeRosterListener(mBeemRosterListener);
-			 * mChatManager.removeChatCreationListener(mChatManagerListener); }
-			 * catch (RemoteException e) { Log.e(TAG, e.getMessage()); }
-			 */
+			
+			 mXmppFacade = null; try {
+			 mRoster.removeRosterListener(mBeemRosterListener);
+			 mChatManager.removeChatCreationListener(mChatManagerListener); }
+			 catch (RemoteException e) { Log.e(TAG, e.getMessage()); }
+			 
 		}
 	}
 
