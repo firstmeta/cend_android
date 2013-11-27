@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menu_wallet"
+        android:showAsAction="ifRoom"
+        android:icon="@drawable/ic_wallet"
+        android:title="Wallet">
+    </item>
+    <item
+        android:id="@+id/menu_friends"
+        android:showAsAction="ifRoom"
+        android:icon="@drawable/ic_friends"
+        android:title="Friends">
+    </item>
+
+</menu>

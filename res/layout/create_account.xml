@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="40dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/logo" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:paddingBottom="10dip"
+                android:text="@string/create_account_text"
+                android:textSize="18sp"
+                android:visibility="gone" />
+
+            <TextView
+                style="@style/Label"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/create_account_username" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="18dp"
+                android:orientation="horizontal" >
+
+                <EditText
+                    android:id="@+id/create_account_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/create_account_username"
+                    android:hint="beem"
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress"
+                    android:minWidth="120dp"
+                    android:singleLine="true" />
+
+                <TextView
+                    style="@style/Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" @ " />
+
+                <AutoCompleteTextView
+                    android:id="@+id/xmpp_server"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:completionThreshold="1"
+                    android:gravity="left"
+                    android:hint="cendhome.com"
+                    android:inputType="textNoSuggestions"
+                    android:minWidth="160dp" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/Label"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/create_account_password" />
+
+            <EditText
+                android:id="@+id/create_account_password"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:contentDescription="@string/create_account_password"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword"
+                android:singleLine="true" />
+
+            <TextView
+                style="@style/Label"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/create_account_confirm_password" />
+
+            <EditText
+                android:id="@+id/create_account_confirm_password"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/create_account_confirm_password"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword"
+                android:singleLine="true" />
+
+            <TextView
+                android:id="@+id/settings_warn_label"
+                style="@style/Label"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine|textNoSuggestions"
+                android:text="@string/account_wizard_settings_warn"
+                android:textColor="@color/white"
+                android:textStyle="normal"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/error_label"
+                style="@style/Label"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:textColor="@color/red"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:minWidth="100dp"
+                android:text="Sign Up" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
