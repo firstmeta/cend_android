@@ -8,10 +8,8 @@
         android:id="@+id/walletListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="2dp"
-        android:entries="@array/wallet_sample_items" >
-
+        android:divider="#ccc"
+        android:dividerHeight="1px" >
     </ListView>
 
 </LinearLayout>
