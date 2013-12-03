@@ -208,7 +208,7 @@ public class ContactListAdapter extends BaseAdapter implements Filterable {
 		}
 		if (avatarDrawable == null)
 			avatarDrawable = context.getResources().getDrawable(
-					R.drawable.beem_launcher_icon_silver);
+					R.drawable.default_avatar);
 		LayerDrawable ld = (LayerDrawable) context.getResources().getDrawable(
 				R.drawable.avatar_status);
 		ld.setLayerInset(1, 36, 36, 0, 0);

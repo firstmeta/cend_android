@@ -16,8 +16,10 @@
 	android:singleLine="true"
 	android:maxLines="1"
 	android:paddingLeft="10dp"
+	android:textColor="#333"
+	android:fontFamily="sans-serif"
 	android:textAppearance="?android:attr/textAppearanceMedium"
-	android:textStyle="bold" />
+	/>
 
     <TextView android:id="@+id/contactlistmsgperso"
 	android:layout_width="fill_parent" android:layout_height="wrap_content"
@@ -26,6 +28,8 @@
 	android:paddingLeft="10dp" android:singleLine="true"
 	android:maxLines="1" android:linksClickable="false" android:autoLink="all"
 	android:scrollHorizontally="true" android:textColorLink="@color/white"
+	android:textColor="#777"
+	android:fontFamily="sans-serif-light"
 	android:textAppearance="?android:attr/textAppearanceSmall"
 	/>
 </RelativeLayout>
