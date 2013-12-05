@@ -71,6 +71,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -249,9 +250,9 @@ public class ContactList extends FragmentActivity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		/*
-		 * this.unregisterReceiver(mReceiver); LOGV(TAG, "onDestroy activity");
-		 */
+		this.unregisterReceiver(mReceiver); 
+		Log.i(TAG, "onDestroy activity");
+		 
 	}
 
 	/**
