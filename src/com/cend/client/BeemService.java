@@ -101,6 +101,7 @@ import com.cend.client.smack.avatar.AvatarProvider;
 import com.cend.client.smack.ping.PingExtension;
 import com.cend.client.smack.sasl.SASLGoogleOAuth2Mechanism;
 import com.cend.client.smack.sasl.ScramSaslMechanism;
+import com.cend.client.smack.transaction.TransactionProvider;
 import com.cend.client.utils.BeemBroadcastReceiver;
 import com.cend.client.utils.BeemConnectivity;
 import com.cend.client.utils.Status;
@@ -578,6 +579,9 @@ public class BeemService extends Service {
 				new AvatarMetadataProvider());
 		pm.addExtensionProvider("data", "urn:xmpp:avatar:data",
 				new AvatarProvider());
+		
+		// Cend Transaction
+		pm.addExtensionProvider("transaction", "urn:xmpp:transaction", new TransactionProvider());
 
 		// PEPProvider pep = new PEPProvider();
 		// AvatarMetadataProvider avaMeta = new AvatarMetadataProvider();

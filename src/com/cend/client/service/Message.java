@@ -51,6 +51,7 @@ import org.jivesoftware.smackx.packet.DelayInformation;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 /**
  * This class represents a instant message.
@@ -175,6 +176,11 @@ public class Message implements Parcelable {
 		} else {
 			mTimestamp = new Date();
 		}
+		
+		PacketExtension data = smackMsg.getExtension("transaction", "urn:xmpp:transaction");
+		//data.
+//		Log.d("Smack Package", smackMsg.toXML());
+//		Log.d("Smack Package - extension", data != null ? data.toXML() : "No extension data!");
 	}
 
 	/**
