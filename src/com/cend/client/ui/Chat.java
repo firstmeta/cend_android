@@ -55,6 +55,7 @@ import java.util.Map;
 import org.jivesoftware.smack.packet.Presence.Mode;
 import org.jivesoftware.smack.util.StringUtils;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ComponentName;
@@ -74,8 +75,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.preference.PreferenceManager;
-import android.text.Html;
-import android.text.Spanned;
 import android.text.util.Linkify;
 import android.util.Log;
 import android.view.Gravity;
@@ -98,6 +97,10 @@ import android.widget.TextView;
 
 import com.android.mms.util.SmileyParser;
 import com.cend.client.R;
+import com.cend.client.providers.AvatarProvider;
+import com.cend.client.service.Contact;
+import com.cend.client.service.Message;
+import com.cend.client.service.PresenceAdapter;
 import com.cend.client.service.aidl.IBeemRosterListener;
 import com.cend.client.service.aidl.IChat;
 import com.cend.client.service.aidl.IChatManager;
@@ -105,10 +108,6 @@ import com.cend.client.service.aidl.IChatManagerListener;
 import com.cend.client.service.aidl.IMessageListener;
 import com.cend.client.service.aidl.IRoster;
 import com.cend.client.service.aidl.IXmppFacade;
-import com.cend.client.providers.AvatarProvider;
-import com.cend.client.service.Contact;
-import com.cend.client.service.Message;
-import com.cend.client.service.PresenceAdapter;
 import com.cend.client.ui.dialogs.builders.ChatList;
 import com.cend.client.ui.dialogs.builders.DisplayOtrFingerprint;
 import com.cend.client.utils.BeemBroadcastReceiver;
@@ -142,6 +141,7 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 	private ListView mMessagesListView;
 	private EditText mInputField;
 	private Button mSendButton;
+	private ActionBar actionbar;
 	private final Map<Integer, Bitmap> mStatusIconsMap = new HashMap<Integer, Bitmap>();
 
 	private final List<MessageText> mListMessages = new ArrayList<MessageText>();
@@ -174,7 +174,7 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 	@Override
 	protected void onCreate(Bundle savedBundle) {
 		super.onCreate(savedBundle);
-		android.app.ActionBar actionbar = getActionBar();
+		actionbar = getActionBar();
 		actionbar.setDisplayHomeAsUpEnabled(true);
 		
 		 this.registerReceiver(mBroadcastReceiver, new
@@ -219,11 +219,6 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 		});
 
 		prepareIconsStatus();
-		
-		//set the name of the person,his online status and his avatar in the action bar
-		actionbar.setTitle("Preston");
-		actionbar.setSubtitle("online");
-		actionbar.setLogo(R.drawable.user_avatar);
 	}
 
 	@Override
@@ -527,6 +522,7 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 		// Check for a contact name update
 		String name = mContact.getName();
 		String res = mContact.getSelectedRes();
+		actionbar.setTitle(name);
 		if (!"".equals(res))
 			name += "(" + res + ")";
 		if (!mCompact) {
@@ -574,6 +570,8 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 	 * Update the contact status icon.
 	 */
 	private void updateContactStatusIcon() {
+		actionbar.setSubtitle(mContact.getMsgState());
+		actionbar.setLogo(getAvatarDrawable(mContact.getAvatarId()));
 		if (mCompact)
 			return;
 		String id = mContact.getAvatarId();
@@ -615,7 +613,7 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 		}
 		if (avatarDrawable == null)
 			avatarDrawable = getResources().getDrawable(
-					R.drawable.beem_launcher_icon_silver);
+					R.drawable.default_avatar_ab);
 		return avatarDrawable;
 	}
 
@@ -927,7 +925,6 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 			msgText.setText(msgBody);
 			android.widget.LinearLayout.LayoutParams lp = (android.widget.LinearLayout.LayoutParams) msgText
 					.getLayoutParams();
-
 			if (!msg.getName().equals(getString(R.string.chat_self))) {
 				lp.gravity = Gravity.LEFT;
 				msgText.setBackgroundResource(R.drawable.bubble_friend);
