@@ -4,7 +4,7 @@ import org.jivesoftware.smack.packet.PacketExtension;
 
 public class TransactionExtension implements PacketExtension {
 	
-	public static final String NAMESPACE = "urn:xmpp:cendtransaction";
+	public static final String NAMESPACE = "urn:xmpp:transaction";
 	
 	public TransactionExtension(String transactionId){
 		this.transactionId = transactionId;

@@ -96,7 +96,8 @@ public class Message implements Parcelable {
 	private String mFrom;
 	private String mThread;
 	private Date mTimestamp;
-
+	private boolean mTransactional = false;
+	
 	// TODO ajouter l'erreur
 
 	/**
@@ -177,10 +178,13 @@ public class Message implements Parcelable {
 			mTimestamp = new Date();
 		}
 		
-		PacketExtension data = smackMsg.getExtension("transaction", "urn:xmpp:transaction");
+		PacketExtension data = smackMsg.getExtension("urn:xmpp:transaction");
+		if(data != null){
+			mTransactional = true;
+		}
 		//data.
-//		Log.d("Smack Package", smackMsg.toXML());
-//		Log.d("Smack Package - extension", data != null ? data.toXML() : "No extension data!");
+		Log.d("Smack Package", smackMsg.toXML());
+		Log.d("Smack Package - extension", data != null ? data.toXML() : "No extension data!");
 	}
 
 	/**
@@ -355,5 +359,10 @@ public class Message implements Parcelable {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	public boolean getTransactional(){
+		return mTransactional;
+	}
+
 
 }

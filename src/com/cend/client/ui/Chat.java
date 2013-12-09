@@ -777,28 +777,25 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 					@Override
 					public void run() {
 						if (msg.getType() == Message.MSG_TYPE_ERROR) {
-							mListMessages.add(new MessageText(fromBareJid,
-									mContact.getName(), msg.getBody(), true,
-									msg.getTimestamp()));
+							mListMessages.add(new MessageText(fromBareJid, mContact.getName(), msg.getBody(), true, msg.getTimestamp()));
 							mMessagesListAdapter.notifyDataSetChanged();
 						} else if (msg.getBody() != null) {
 							MessageText lastMessage = null;
 							if (mListMessages.size() != 0)
-								lastMessage = mListMessages.get(mListMessages
-										.size() - 1);
+								lastMessage = mListMessages.get(mListMessages.size() - 1);
 
-							if (lastMessage != null
-									&& lastMessage.getBareJid().equals(
-											fromBareJid)) {
-								lastMessage.setMessage(lastMessage.getMessage()
-										.concat("\n" + msg.getBody()));
+							if (lastMessage != null && lastMessage.getBareJid().equals(fromBareJid)) {
+								lastMessage.setMessage(lastMessage.getMessage().concat("\n" + msg.getBody()));
 								lastMessage.setTimestamp(msg.getTimestamp());
-								mListMessages.set(mListMessages.size() - 1,
-										lastMessage);
-							} else if (msg.getBody() != null)
-								mListMessages.add(new MessageText(fromBareJid,
-										mContact.getName(), msg.getBody(),
-										false, msg.getTimestamp()));
+								mListMessages.set(mListMessages.size() - 1,lastMessage);
+							} else if (msg.getBody() != null){
+								MessageText newMsg = new MessageText(fromBareJid,mContact.getName(), msg.getBody(),false, msg.getTimestamp());
+								newMsg.setTransactional(msg.getTransactional());
+								mListMessages.add(newMsg);
+							}
+							
+							Log.d("Chat process message", msg.getTransactional() + "");
+							
 							mMessagesListAdapter.notifyDataSetChanged();
 						}
 					}
@@ -940,6 +937,12 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 				lp.gravity = Gravity.RIGHT;
 				msgText.setTextColor(Color.parseColor("#1c1e1f"));
 			}
+			
+			// Transactional msg
+			if(msg.getTransactional()){
+				msgText.setTextColor(Color.GREEN);
+			}
+			
 			registerForContextMenu(msgText);
 			TextView msgDate = (TextView) sv.findViewById(R.id.chatmessagedate);
 			if (msg.getTimestamp() != null) {
@@ -967,6 +970,7 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 		private String mMessage;
 		private boolean mIsError;
 		private Date mTimestamp;
+		private boolean mTransactional = false;
 
 		/**
 		 * Constructor.
@@ -1116,6 +1120,9 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 		public Date getTimestamp() {
 			return mTimestamp;
 		}
+		
+		public boolean getTransactional() { return mTransactional; }
+		public void setTransactional(boolean trans) { mTransactional = trans; }
 
 	}
 
