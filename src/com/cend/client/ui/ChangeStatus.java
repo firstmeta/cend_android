@@ -79,12 +79,12 @@ import android.widget.ListAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.cend.client.R;
-import com.cend.client.service.aidl.IXmppFacade;
 import com.cend.client.BeemApplication;
 import com.cend.client.BeemService;
+import com.cend.client.R;
 import com.cend.client.providers.AvatarProvider;
 import com.cend.client.service.UserInfo;
+import com.cend.client.service.aidl.IXmppFacade;
 import com.cend.client.utils.BeemBroadcastReceiver;
 import com.cend.client.utils.BeemConnectivity;
 import com.cend.client.utils.Status;
@@ -413,6 +413,7 @@ public class ChangeStatus extends Activity {
 		builder.setTitle(R.string.select_avatar);
 		builder.setSingleChoiceItems(adapter, -1,
 				new DialogInterface.OnClickListener() {
+					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();
 						switch (which) {

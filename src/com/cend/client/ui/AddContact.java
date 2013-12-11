@@ -62,10 +62,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.cend.client.BeemService;
 import com.cend.client.R;
 import com.cend.client.service.aidl.IRoster;
 import com.cend.client.service.aidl.IXmppFacade;
-import com.cend.client.BeemService;
 import com.cend.client.utils.BeemBroadcastReceiver;
 
 /**

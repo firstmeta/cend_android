@@ -58,8 +58,8 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cend.client.R;
 import com.cend.client.BeemApplication;
+import com.cend.client.R;
 import com.cend.client.ui.wizard.Account;
 import com.cend.client.utils.BeemConnectivity;
 
@@ -185,6 +185,7 @@ public class Login extends Activity {
 		builder.setNeutralButton(R.string.login_about_button,
 				new DialogInterface.OnClickListener() {
 
+					@Override
 					public void onClick(DialogInterface dialog, int whichButton) {
 						dialog.cancel();
 					}

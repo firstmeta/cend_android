@@ -68,10 +68,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import com.cend.client.R;
+import com.cend.client.service.PrivacyListItem;
 import com.cend.client.service.aidl.IPrivacyListListener;
 import com.cend.client.service.aidl.IPrivacyListManager;
 import com.cend.client.service.aidl.IXmppFacade;
-import com.cend.client.service.PrivacyListItem;
 import com.cend.client.ui.dialogs.builders.CreatePrivacyList;
 import com.cend.client.ui.dialogs.builders.DeletePrivacyList;
 import com.cend.client.utils.BeemBroadcastReceiver;

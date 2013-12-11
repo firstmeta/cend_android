@@ -48,8 +48,8 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.cend.client.R;
 import com.cend.client.BeemApplication;
+import com.cend.client.R;
 import com.cend.client.providers.AvatarProvider;
 import com.cend.client.service.Contact;
 import com.cend.client.utils.SortedList;

@@ -65,8 +65,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cend.client.R;
-import com.cend.client.service.aidl.IXmppFacade;
 import com.cend.client.service.LoginAsyncTask;
+import com.cend.client.service.aidl.IXmppFacade;
 
 import de.duenndns.ssl.MemorizingTrustManager;
 
@@ -117,6 +117,7 @@ public class LoginAnim extends Activity {
 		mCancelBt = (Button) findViewById(R.id.loginanim_cancel_button);
 		mCancelBt.setOnClickListener(new ClickListener());
 		mSslReceiver = new BroadcastReceiver() {
+			@Override
 			public void onReceive(Context ctx, Intent i) {
 				try {
 					Log.i(TAG, "Interception the SSL notification");
