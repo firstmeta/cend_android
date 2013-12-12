@@ -78,14 +78,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
+import com.cend.client.BeemApplication;
 import com.cend.client.R;
+import com.cend.client.service.Contact;
+import com.cend.client.service.PresenceAdapter;
 import com.cend.client.service.aidl.IBeemRosterListener;
 import com.cend.client.service.aidl.IChatManager;
 import com.cend.client.service.aidl.IRoster;
 import com.cend.client.service.aidl.IXmppFacade;
-import com.cend.client.BeemApplication;
-import com.cend.client.service.Contact;
-import com.cend.client.service.PresenceAdapter;
 import com.cend.client.ui.dialogs.builders.Alias;
 import com.cend.client.ui.dialogs.builders.ChatList;
 import com.cend.client.ui.dialogs.builders.DeleteContact;
@@ -205,7 +205,7 @@ public class ContactList extends FragmentActivity {
 		groupsPagesAdapter = new ListPagerAdapter(getSupportFragmentManager(),
 				viewPager);
 		pagerTabs = (PagerTabStrip) findViewById(R.id.tabstrip);
-		pagerTabs.setTabIndicatorColorResource(R.color.vert_manu);
+		pagerTabs.setTabIndicatorColorResource(R.color.AppBaseColor);
 		pagerTabs.setNonPrimaryAlpha(PAGER_TAB_SECONDARY_ALPHA);
 
 		mListGroup.add(getString(R.string.contact_list_all_contact));
@@ -217,10 +217,11 @@ public class ContactList extends FragmentActivity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		if (!mSettings.getBoolean(BeemApplication.HIDE_GROUPS_KEY, false))
+		hideGroups();
+		/*if (!mSettings.getBoolean(BeemApplication.HIDE_GROUPS_KEY, false))
 			showGroups();
 		else
-			hideGroups();
+			hideGroups();*/
 
 		if (!mBinded)
 			mBinded = bindService(SERVICE_INTENT, mServConn, BIND_AUTO_CREATE);
@@ -246,6 +247,7 @@ public class ContactList extends FragmentActivity {
 		}
 		mXmppFacade = null;
 	}
+	
 
 	@Override
 	protected void onDestroy() {
@@ -277,7 +279,7 @@ public class ContactList extends FragmentActivity {
 					// insert group in sorted list
 					for (ListIterator<String> iterator = realGroups
 							.listIterator(); iterator.hasNext();) {
-						String currentGroup = (String) iterator.next();
+						String currentGroup = iterator.next();
 						if (currentGroup.compareTo(group) > 0) {
 							iterator.previous();
 							iterator.add(group);
@@ -540,7 +542,6 @@ public class ContactList extends FragmentActivity {
 					}
 					assignContactToGroups(mRoster.getContactList(),
 							tmpGroupList);
-
 					mRoster.addRosterListener(mBeemRosterListener);
 					LOGD(TAG, "add roster listener");
 					mChatManager = mXmppFacade.getChatManager();
