@@ -54,8 +54,13 @@
 			android:inputType="textShortMessage|textAutoCorrect|textMultiLine|textCapSentences"
 			android:imeOptions="actionSend|flagNoExtractUi" android:cursorVisible="true"
 			android:hint="@string/chat_input_default_value" />
-		<Button android:id="@+id/chat_send_message"
-			android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:text="@string/chat_send_message" />
+
+		<Button
+		    android:id="@+id/chat_send_message"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/chat_send_message"
+		    android:textColor="@color/white" />
+
 	</LinearLayout>
 </LinearLayout>

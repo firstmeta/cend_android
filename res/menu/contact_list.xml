@@ -20,11 +20,11 @@
 	<item android:id="@+id/menu_wallet"
 		android:visible="true"
 		android:title="Wallet"
-		android:showAsAction="ifRoom"
+		android:showAsAction="always"
 		android:icon="@drawable/ic_wallet" android:titleCondensed="Wallet"/>
 	<item android:id="@+id/menu_friends"
 		android:visible="true"
-		android:showAsAction="ifRoom"
+		android:showAsAction="always"
 		android:title="Friends"
 		android:icon="@drawable/ic_friends" android:titleCondensed="Friends"/>
 </menu>

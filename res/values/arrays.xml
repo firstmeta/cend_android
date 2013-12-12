@@ -24,10 +24,4 @@
 		<item>@string/loganim_login_success</item>
 		<item>@string/loganim_login_failed</item>
 	</string-array>
-	<string-array name="wallet_sample_items">
-	    <item>IC: 5000</item>
-        <item>LD: 10000</item>
-        <item>USD: 23</item>
-        <item>EURO: 10</item>
-	</string-array>
 </resources>

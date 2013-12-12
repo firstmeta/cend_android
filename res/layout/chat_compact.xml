@@ -20,18 +20,18 @@
 	    android:fastScrollEnabled="true"
 	    android:focusable="true"
 	    android:padding="8dp"
-	    android:background="#f7f9fa"
+	    android:background="#c7d4d4"
 	    android:smoothScrollbar="false"
 	    android:stackFromBottom="true"
 	    android:transcriptMode="normal" />
 	<View
     android:layout_width="fill_parent"
     android:layout_height="1dp"
-    android:background="#a3b8bf" />
+    android:background="#a3adad" />
 	<LinearLayout
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
-	    android:background="#f5f5f5"
+	    android:background="#fff"
 	    android:orientation="horizontal"
 	    android:padding="8dp" >
 

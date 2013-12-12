@@ -9,37 +9,11 @@
 
     <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewAppBaseTheme</item>
 
-    <item name="android:checkboxStyle">@style/CheckBoxAppBaseTheme</item>
-
-    <item name="android:radioButtonStyle">@style/RadioButtonAppBaseTheme</item>
-
     <item name="android:buttonStyle">@style/ButtonAppBaseTheme</item>
 
     <item name="android:imageButtonStyle">@style/ImageButtonAppBaseTheme</item>
 
-    <item name="android:spinnerStyle">@style/SpinnerAppBaseTheme</item>
-
-    <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemAppBaseTheme</item>
-
     <item name="android:tabWidgetStyle">@style/TabWidgetAppBaseTheme</item>
-
-    <item name="android:progressBarStyleHorizontal">@style/ProgressBarAppBaseTheme</item>
-
-    <item name="android:seekBarStyle">@style/SeekBarAppBaseTheme</item>
-
-    <item name="android:ratingBarStyle">@style/RatingBarAppBaseTheme</item>
-
-    <item name="android:ratingBarStyleIndicator">@style/RatingBarBigAppBaseTheme</item>
-
-    <item name="android:ratingBarStyleSmall">@style/RatingBarSmallAppBaseTheme</item>
-
-    <item name="android:buttonStyleToggle">@style/ToggleAppBaseTheme</item>
-
-    <item name="android:listViewStyle">@style/ListViewAppBaseTheme</item>
-
-    <item name="android:listViewWhiteStyle">@style/ListViewAppBaseTheme.White</item>
-
-    <item name="android:spinnerItemStyle">@style/SpinnerItemAppBaseTheme</item>
 
   </style>
 

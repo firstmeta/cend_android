@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/LinearLayout1"
-    android:layout_width="fill_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
@@ -11,30 +11,29 @@
         android:layout_height="wrap_content"
         android:paddingBottom="1dp"
         android:text="Reza"
-        android:visibility="gone"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/chatmessagedate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
         android:autoLink="none"
-        android:visibility="gone"
-        android:text="12/03/2013" />
+        android:layout_marginTop="18dp"
+        android:text="12/03/2013"
+        android:textColor="@color/AppSecondaryColor"
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/chatmessagetext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
         android:autoLink="all"
         android:background="@drawable/bubble_friend"
         android:fontFamily="sans-serif-light"
-        android:lineSpacingExtra="5dp"
-        android:paddingTop="10dp"
         android:text="Single Line."
-        android:textColor="#333333"
         android:textSize="18sp" />
 
 </LinearLayout>

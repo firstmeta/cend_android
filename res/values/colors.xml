@@ -7,4 +7,7 @@
 	<color name="red">#FF0000</color>
 	<color name="blue">#00455c</color>
 	<color name="gray_light">#fafcff</color>
+	<color name="AppBaseColor">#ff6200</color>
+	<color name="AppSecondaryColor">#2d2d2d</color>
+	<color name="error_background">#cc0000</color>
 </resources>
