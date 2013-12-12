@@ -96,6 +96,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.mms.util.SmileyParser;
+import com.cend.client.BeemApplication;
 import com.cend.client.R;
 import com.cend.client.providers.AvatarProvider;
 import com.cend.client.service.Contact;
@@ -188,9 +189,7 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 		 .LayoutParams.SOFT_INPUT_ADJUST_PAN); }
 		 
 
-		// mCompact =
-		// settings.getBoolean(BeemApplication.USE_COMPACT_CHAT_UI_KEY, false);
-		mCompact = true;
+		mCompact = settings.getBoolean(BeemApplication.USE_COMPACT_CHAT_UI_KEY, false);
 		// UI
 		if (!mCompact) {
 			setContentView(R.layout.chat);

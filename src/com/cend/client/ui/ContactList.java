@@ -217,11 +217,10 @@ public class ContactList extends FragmentActivity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		hideGroups();
-		/*if (!mSettings.getBoolean(BeemApplication.HIDE_GROUPS_KEY, false))
+		if (!mSettings.getBoolean(BeemApplication.HIDE_GROUPS_KEY, false))
 			showGroups();
 		else
-			hideGroups();*/
+			hideGroups();
 
 		if (!mBinded)
 			mBinded = bindService(SERVICE_INTENT, mServConn, BIND_AUTO_CREATE);
