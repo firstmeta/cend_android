@@ -409,7 +409,7 @@ public class XmppConnectionAdapter extends IXmppConnection.Stub {
 		mStatusNotification.flags = Notification.FLAG_NO_CLEAR
 				| Notification.FLAG_ONGOING_EVENT;
 
-		mStatusNotification.setLatestEventInfo(mService, "Beem Status", text,
+		mStatusNotification.setLatestEventInfo(mService, "Cend Status", text,
 				PendingIntent.getActivity(mService, 0, new Intent(mService,
 						ChangeStatus.class), 0));
 		// bypass the preferences for notification
