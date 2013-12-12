@@ -453,15 +453,25 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 				}
 
 				if (m.getBody() != null) {
-					if (lastMessage == null
-							|| !fromBareJid.equals(lastMessage.getBareJid())) {
-						lastMessage = new MessageText(fromBareJid, name,
+					if (m.getTransactional()) {
+						MessageText newMsg = new MessageText(fromBareJid, name,
 								m.getBody(), false, m.getTimestamp());
-						result.add(lastMessage);
+						newMsg.setTransactional(true);
+						result.add(newMsg);
 					} else {
-						lastMessage.setMessage(lastMessage.getMessage().concat(
-								"\n" + m.getBody()));
+
+						if (lastMessage == null
+								|| !fromBareJid
+										.equals(lastMessage.getBareJid())) {
+							lastMessage = new MessageText(fromBareJid, name,
+									m.getBody(), false, m.getTimestamp());
+							result.add(lastMessage);
+						} else {
+							lastMessage.setMessage(lastMessage.getMessage()
+									.concat("\n" + m.getBody()));
+						}
 					}
+
 				}
 			}
 		}
@@ -905,6 +915,7 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 		 *            The parent that this view will eventually be attached to.
 		 * @return A View corresponding to the data at the specified position.
 		 */
+		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View sv;
 			if (convertView == null) {
@@ -914,7 +925,7 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 				sv = convertView;
 			}
 			DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT,
-					DateFormat.MEDIUM);
+					DateFormat.SHORT);
 			MessageText msg = mListMessages.get(position);
 			TextView msgName = (TextView) sv.findViewById(R.id.chatmessagename);
 			msgName.setText(msg.getName());
@@ -923,35 +934,51 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 			TextView msgText = (TextView) sv.findViewById(R.id.chatmessagetext);
 			CharSequence msgBody = addSmileysToMessage(msg.getMessage());
 			msgText.setText(msgBody);
-			android.widget.LinearLayout.LayoutParams lp = (android.widget.LinearLayout.LayoutParams) msgText
-					.getLayoutParams();
-			if (!msg.getName().equals(getString(R.string.chat_self))) {
-				lp.gravity = Gravity.LEFT;
-				msgText.setBackgroundResource(R.drawable.bubble_friend);
-
-			} else {
-				msgText.setBackgroundResource(R.drawable.bubble_self);
-				lp.gravity = Gravity.RIGHT;
-				msgText.setTextColor(Color.parseColor("#1c1e1f"));
-			}
-			
-			// Transactional msg
-			if(msg.getTransactional()){
-				msgText.setTextColor(Color.GREEN);
-			}
-			
-			registerForContextMenu(msgText);
 			TextView msgDate = (TextView) sv.findViewById(R.id.chatmessagedate);
 			if (msg.getTimestamp() != null) {
 				String date = df.format(msg.getTimestamp());
 				msgDate.setText(date);
 			}
-			if (msg.isError()) {
+			android.widget.LinearLayout.LayoutParams lp = (android.widget.LinearLayout.LayoutParams) msgText.getLayoutParams();
+			android.widget.LinearLayout.LayoutParams dateLp = (android.widget.LinearLayout.LayoutParams) msgDate.getLayoutParams();
+			if (msg.getTransactional()) {
+				lp.gravity = Gravity.CENTER_HORIZONTAL;
+				dateLp.gravity = Gravity.CENTER_HORIZONTAL;
+				dateLp.setMargins(0, 24, 18, 0);
+				msgText.setBackgroundResource(R.drawable.transaction_msg_background);
+				msgText.setTextColor(getResources().getColor(R.color.white));
+
+			} else if (msg.isError()) {
 				String err = getString(R.string.chat_error);
 				msgName.setText(err);
-				msgName.setTextColor(Color.RED);
 				msgName.setError(err);
+				lp.gravity = Gravity.CENTER_HORIZONTAL;
+				dateLp.gravity = Gravity.CENTER_HORIZONTAL;
+				dateLp.setMargins(0, 24, 18, 0);
+				msgText.setBackgroundColor(getResources().getColor(
+						R.color.error_background));
+				msgText.setTextColor(getResources().getColor(R.color.white));
+			} else {
+				if (msg.getName().equals(getString(R.string.chat_self))) {
+					lp.gravity = Gravity.RIGHT;
+					dateLp.gravity = Gravity.RIGHT;
+					dateLp.setMargins(0, 24, 18, 0);
+					msgText.setBackgroundResource(R.drawable.bubble_self);
+					msgText.setTextColor(Color.parseColor("#ffffff"));
+
+				} else {
+					msgText.setBackgroundResource(R.drawable.bubble_friend);
+					lp.gravity = Gravity.LEFT;
+					msgText.setTextColor(getResources().getColor(
+							R.color.AppSecondaryColor));
+					dateLp.gravity = Gravity.LEFT;
+					dateLp.setMargins(18, 24, 0, 0);
+
+				}
 			}
+			
+			registerForContextMenu(msgText);
+			
 			return sv;
 		}
 	}
